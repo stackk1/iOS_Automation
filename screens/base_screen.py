@@ -16,9 +16,8 @@ class BaseScreen(ABC):
         if not self.is_here():
             raise Exception(f"Driver was not at {self.__class__.__name__} - {self.screen_id}")
 
-    def is_here(self):
+    def is_here(self) -> bool:
         try:
-            self.driver.push
             self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=self.screen_id)
             return True
         except NoSuchElementException:

@@ -7,7 +7,7 @@ from appium import webdriver
 
 from screens.base_screen import BaseScreen
 
-APP_PATH = os.environ["SIMULATOR"]
+APP_PATH = os.environ.get("APP_PATH")
 
 @pytest.fixture(autouse=True)
 def driver():
