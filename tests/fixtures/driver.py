@@ -7,13 +7,13 @@ from appium import webdriver
 
 from screens.base_screen import BaseScreen
 
-APP_PATH = os.environ.get("APP_PATH")
+#APP_PATH = os.environ.get("APP_PATH")
 
 @pytest.fixture(autouse=True)
 def driver():
     options = XCUITestOptions().load_capabilities({
         'platformVersion': '17.5',
-        'app': APP_PATH,
+        'app': '/Users/andrew/Library/Developer/Xcode/DerivedData/X-clqytwwdyrqhzkayaqjbboneizhx/Build/Products/Debug-iphonesimulator/X.app',
         'deviceName': "iPhone 15"
     })
     driver = webdriver.Remote(
