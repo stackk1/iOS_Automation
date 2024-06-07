@@ -2,6 +2,7 @@ from screens.games_screen import GamesScreen, Game
 from screens.launch_screen import LaunchScreen, App
 import pytest
 
+
 class TestGames:
 
     def test_open_games(self):
