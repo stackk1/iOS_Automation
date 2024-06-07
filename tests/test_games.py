@@ -16,3 +16,11 @@ class TestGames:
         games_screen = GamesScreen()
         games_screen.go_to_game(Game.SLOTS)
         assert games_screen.is_on_game(Game.SLOTS)
+
+    def test_open_war(self):
+        launch_screen = LaunchScreen()
+        launch_screen.launch_app(App.GAMES)
+        games_screen = GamesScreen()
+        games_screen.go_to_game(Game.WAR)
+        assert games_screen.is_on_game(Game.WAR)
+
