@@ -7,6 +7,6 @@ class TestWeather:
 
     def test_open_weather(self):
         launch_screen = LaunchScreen()
-        launch_screen.go_to_weather_screen()
+        launch_screen.launch_weather()
         weather_screen = WeatherScreen()
         assert weather_screen.is_here()
