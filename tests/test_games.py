@@ -1,6 +1,6 @@
 from screens.games_screen import GamesScreen, Game
 from screens.launch_screen import LaunchScreen, App
-
+import pytest
 
 class TestGames:
 
@@ -17,10 +17,13 @@ class TestGames:
         games_screen.go_to_game(Game.SLOTS)
         assert games_screen.is_on_game(Game.SLOTS)
 
-    def test_open_war(self):
+    @pytest.mark.parametrize(
+        "game",
+        [game for game in Game]
+    )
+    def test_open_game(self, game: Game):
         launch_screen = LaunchScreen()
         launch_screen.launch_app(App.GAMES)
         games_screen = GamesScreen()
-        games_screen.go_to_game(Game.WAR)
-        assert games_screen.is_on_game(Game.WAR)
-
+        games_screen.go_to_game(game)
+        assert games_screen.is_on_game(game)
