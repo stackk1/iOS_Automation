@@ -14,20 +14,19 @@ class Game(Enum):
     CARD_FLIPPER = "CARD_FLIPPER"
 
 
-
 class GamesScreen(BaseScreen):
     screen_id = "SCREEN_GAMES"
 
-    def go_to_game(self, game: Game):
-        self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"APPBUTTON_{game.value}").click()
-        print(f"clicking APPBUTTON_{game.value}")
+    def go_to_game(self, game: str):
+        self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"APPBUTTON_{game}").click()
+        print(f"clicking APPBUTTON_{game}")
 
-    def is_on_game(self, game: Game) -> bool:
+    def is_on_game(self, game: str) -> bool:
         try:
-            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"SCREEN_GAMES_{game.value}")
+            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"SCREEN_GAMES_{game}")
             return True
         except NoSuchElementException:
-            print(f"Did not find SCREEN_GAMES_{game.value}")
+            print(f"Did not find SCREEN_GAMES_{game}")
             return False
 
     def go_to_settings(self):
@@ -39,3 +38,10 @@ class GamesScreen(BaseScreen):
             return True
         except NoSuchElementException:
             return False
+
+    def get_slot_score(self):
+        slot_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_SCORE_VALUE")
+        return slot_score
+
+    def press_button(self, button: str):
+        self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BUTTON_{button}").click()
