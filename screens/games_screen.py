@@ -40,11 +40,17 @@ class GamesScreen(BaseScreen):
         except NoSuchElementException:
             return False
 
+    def press_button(self, button: str):
+        self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BUTTON_{button}").click()
+
     def get_slot_score(self) -> int:
         slot_score_value = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_SCORE_VALUE")
         score = re.sub("[^0-9]", "",
                        slot_score_value.text)
         return int(score)
 
-    def press_button(self, button: str):
-        self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BUTTON_{button}").click()
+    def get_war_cards_remaining(self) -> int:
+        war_cards_remaining = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="WAR_CARDS_REMAINING_VALUE")
+        card_count = re.sub("[^0-9]", "",
+                       war_cards_remaining.text)
+        return int(card_count)

@@ -45,3 +45,5 @@ class TestGames:
         games_screen = GamesScreen()
         games_screen.go_to_game("WAR")
         games_screen.press_button("DEAL")
+        cards_left = games_screen.get_war_cards_remaining()
+        assert cards_left != 104
