@@ -44,7 +44,7 @@ class GamesScreen(BaseScreen):
         self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BUTTON_{button}").click()
 
     def get_slot_score(self) -> int:
-        slot_score_value = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_SCORE_VALUE")
+        slot_score_value = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_SLOT_SCORE_VALUE")
         score = re.sub("[^0-9]", "",
                        slot_score_value.text)
         return int(score)
@@ -54,3 +54,15 @@ class GamesScreen(BaseScreen):
         card_count = re.sub("[^0-9]", "",
                        war_cards_remaining.text)
         return int(card_count)
+
+    def get_dice_war_score(self):
+        player_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_PLAYER_SCORE_VALUE")
+        pscore = re.sub("[^0-9]", "",
+                            player_score.text)
+        cpu_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_CPU_SCORE_VALUE")
+        cscore = re.sub("[^0-9]", "",
+                        cpu_score.text)
+        tie_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_TIE_SCORE_VALUE")
+        tscore = re.sub("[^0-9]", "",
+                        tie_score.text)
+        return pscore, cscore, tscore
