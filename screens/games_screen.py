@@ -1,3 +1,4 @@
+import re
 from enum import Enum
 
 from selenium.common import NoSuchElementException
@@ -39,9 +40,11 @@ class GamesScreen(BaseScreen):
         except NoSuchElementException:
             return False
 
-    def get_slot_score(self):
-        slot_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_SCORE_VALUE")
-        return slot_score
+    def get_slot_score(self) -> int:
+        slot_score_value = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_SCORE_VALUE")
+        score = re.sub("[^0-9]", "",
+                       slot_score_value.text)
+        return int(score)
 
     def press_button(self, button: str):
         self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BUTTON_{button}").click()

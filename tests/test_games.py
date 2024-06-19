@@ -34,7 +34,10 @@ class TestGames:
         launch_screen.launch_app(App.GAMES)
         games_screen = GamesScreen()
         games_screen.go_to_game("SLOTS")
-        print(games_screen.get_slot_score())
+        games_screen.press_button("SPIN")
+        score = games_screen.get_slot_score()
+        print(f" score = {score}")
+        assert score != 1000
 
     def test_war(self):
         launch_screen = LaunchScreen()
