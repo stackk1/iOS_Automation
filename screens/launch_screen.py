@@ -19,3 +19,4 @@ class LaunchScreen(BaseScreen):
 
     def launch_app(self, app: App):
         self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"APPBUTTON_{app.value}").click()
+

@@ -34,7 +34,10 @@ class TestGames:
         launch_screen.launch_app(App.GAMES)
         games_screen = GamesScreen()
         games_screen.go_to_game("SLOTS")
-        print(games_screen.get_slot_score())
+        games_screen.press_button("SPIN")
+        score = games_screen.get_slot_score()
+        print(f" score = {score}")
+        assert score != 1000
 
     def test_war(self):
         launch_screen = LaunchScreen()
@@ -42,3 +45,14 @@ class TestGames:
         games_screen = GamesScreen()
         games_screen.go_to_game("WAR")
         games_screen.press_button("DEAL")
+        cards_left = games_screen.get_war_cards_remaining()
+        assert cards_left != 104
+
+    def test_dice_war(self):
+        launch_screen = LaunchScreen()
+        launch_screen.launch_app(App.GAMES)
+        games_screen = GamesScreen()
+        games_screen.go_to_game("DICE_WAR")
+        games_screen.press_button("ROLL")
+        dice_score = games_screen.get_dice_war_score()
+        print(dice_score)
