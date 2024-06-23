@@ -52,7 +52,7 @@ class GamesScreen(BaseScreen):
             return False
 
     def get_slot_score(self) -> int:
-        slot_score_value = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_SLOT_SCORE_VALUE")
+        slot_score_value = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="SLOT_SCORE_VALUE")
         score = re.sub("[^0-9]", "",
                        slot_score_value.text)
         return int(score)
@@ -62,8 +62,8 @@ class GamesScreen(BaseScreen):
         return war_cards_remaining
 
     def get_dice_war_score(self):
-        player_score = ScoreChecker.get_score(self,"VIEW_PLAYER_SCORE_VALUE")
-        cpu_score = ScoreChecker.get_score(self,"VIEW_CPU_SCORE_VALUE")
-        tie_score = ScoreChecker.get_score(self,"VIEW_TIE_SCORE_VALUE")
+        player_score = ScoreChecker.get_score(self,"PLAYER_SCORE_VALUE")
+        cpu_score = ScoreChecker.get_score(self,"CPU_SCORE_VALUE")
+        tie_score = ScoreChecker.get_score(self,"TIE_SCORE_VALUE")
         dice_score = player_score + cpu_score + tie_score
         return dice_score
