@@ -36,7 +36,6 @@ class TestGames:
         games_screen.go_to_game("SLOTS")
         games_screen.press_button("SPIN")
         score = games_screen.get_slot_score()
-        print(f" score = {score}")
         assert score != 1000
 
     def test_war(self):
@@ -55,4 +54,4 @@ class TestGames:
         games_screen.go_to_game("DICE_WAR")
         games_screen.press_button("ROLL")
         dice_score = games_screen.get_dice_war_score()
-        print(dice_score)
+        assert dice_score != 0
