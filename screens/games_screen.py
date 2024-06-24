@@ -2,9 +2,10 @@ import re
 from enum import Enum
 
 from selenium.common import NoSuchElementException
-
 from screens.base_screen import BaseScreen
 from appium.webdriver.common.appiumby import AppiumBy
+
+from tests.fixtures.score_checker import ScoreChecker
 
 
 class Game(Enum):
@@ -51,28 +52,26 @@ class GamesScreen(BaseScreen):
             return False
 
     def get_slot_score(self) -> int:
-        slot_score_value = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_SLOT_SCORE_VALUE")
+        slot_score_value = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="SLOT_SCORE_VALUE")
         score = re.sub("[^0-9]", "",
                        slot_score_value.text)
         return int(score)
 
     def get_war_cards_remaining(self) -> int:
-        war_cards_remaining = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="WAR_CARDS_REMAINING_VALUE")
-        card_count = re.sub("[^0-9]", "",
-                            war_cards_remaining.text)
-        return int(card_count)
+        war_cards_remaining = ScoreChecker.get_score(self,"WAR_CARDS_REMAINING_VALUE")
+        return war_cards_remaining
 
     def get_dice_war_score(self):
-        player_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_PLAYER_SCORE_VALUE")
-        pscore = re.sub("[^0-9]", "",
-                        player_score.text)
-        print(f"player = {pscore}")
-        cpu_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_CPU_SCORE_VALUE")
-        cscore = re.sub("[^0-9]", "",
-                        cpu_score.text)
-        print(f"cpu = {cscore}")
-        tie_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_TIE_SCORE_VALUE")
-        tscore = re.sub("[^0-9]", "",
-                        tie_score.text)
-        print(f"tie = {tscore}")
-        return pscore, cscore, tscore
+        player_score = ScoreChecker.get_score(self,"PLAYER_SCORE_VALUE")
+        cpu_score = ScoreChecker.get_score(self,"CPU_SCORE_VALUE")
+        tie_score = ScoreChecker.get_score(self,"TIE_SCORE_VALUE")
+        dice_score = player_score + cpu_score + tie_score
+        return dice_score
+
+    def get_dice_roller_count(self):
+        count = ScoreChecker.get_score(self, "DICE_TOTAL_VALUE")
+        return count
+
+    def get_card_flipper_value(self):
+        card_value = ScoreChecker.get_score(self, "CARD_VALUE")
+        return card_value
