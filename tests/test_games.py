@@ -55,3 +55,21 @@ class TestGames:
         games_screen.press_button("ROLL")
         dice_score = games_screen.get_dice_war_score()
         assert dice_score != 0
+
+    def test_dice_roller(self):
+        launch_screen = LaunchScreen()
+        launch_screen.launch_app(App.GAMES)
+        games_screen = GamesScreen()
+        games_screen.go_to_game("DICE_ROLLER")
+        games_screen.press_button("ROLL")
+        assert games_screen.get_dice_roller_count() != 0
+
+    def test_card_flipper(self):
+        launch_screen = LaunchScreen()
+        launch_screen.launch_app(App.GAMES)
+        games_screen = GamesScreen()
+        games_screen.go_to_game("CARD_FLIPPER")
+        first_card = games_screen.get_card_flipper_value()
+        games_screen.swipe(800, 500, 200, 500)
+        second_card = games_screen.get_card_flipper_value()
+        assert first_card != second_card

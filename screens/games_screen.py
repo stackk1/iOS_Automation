@@ -67,3 +67,11 @@ class GamesScreen(BaseScreen):
         tie_score = ScoreChecker.get_score(self,"TIE_SCORE_VALUE")
         dice_score = player_score + cpu_score + tie_score
         return dice_score
+
+    def get_dice_roller_count(self):
+        count = ScoreChecker.get_score(self, "DICE_TOTAL_VALUE")
+        return count
+
+    def get_card_flipper_value(self):
+        card_value = ScoreChecker.get_score(self, "CARD_VALUE")
+        return card_value

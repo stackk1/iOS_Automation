@@ -22,3 +22,6 @@ class BaseScreen(ABC):
             return True
         except NoSuchElementException:
             return False
+
+    def swipe(self, start_x, start_y, end_x, end_y):
+        self.driver.swipe(start_x, start_y, end_x, end_y)
