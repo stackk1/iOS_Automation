@@ -64,15 +64,9 @@ class GamesScreen(BaseScreen):
 
     def get_dice_war_score(self):
         player_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_PLAYER_SCORE_VALUE")
-        pscore = re.sub("[^0-9]", "",
-                        player_score.text)
-        print(f"player = {pscore}")
+        pscore = re.sub("[^0-9]", "", player_score.text)
         cpu_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_CPU_SCORE_VALUE")
-        cscore = re.sub("[^0-9]", "",
-                        cpu_score.text)
-        print(f"cpu = {cscore}")
+        cscore = re.sub("[^0-9]", "", cpu_score.text)
         tie_score = self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="VIEW_TIE_SCORE_VALUE")
-        tscore = re.sub("[^0-9]", "",
-                        tie_score.text)
-        print(f"tie = {tscore}")
+        tscore = re.sub("[^0-9]", "", tie_score.text)
         return pscore, cscore, tscore
