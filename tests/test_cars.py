@@ -17,3 +17,12 @@ class TestCars:
         cars_screen.go_to_car("BAJA","2003")
         assert cars_screen.get_car_detail("MODEL") == "Baja"
         assert cars_screen.get_car_detail("YEAR") == "2003"
+
+    def test_mileage_entry(self):
+        launch_screen = LaunchScreen()
+        launch_screen.launch_app(App.CARS)
+        cars_screen = CarsScreen()
+        cars_screen.go_to_car("PRELUDE", "2001")
+        cars_screen.input_text("MILEAGE","123,456")
+        print(cars_screen.get_text("MILEAGE"))
+        assert cars_screen.get_text("MILEAGE") == "123,456"
