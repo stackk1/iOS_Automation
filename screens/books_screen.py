@@ -7,19 +7,19 @@ from screens.base_screen import BaseScreen
 
 
 class Book(Enum):
-    AMAZING_WORDS = "Amazing Words"
-    L_F_R = "Literature For Reading"
-    TEXT_AND_MORE = "Text and More"
-    C_W_P = "Characters, Words, and Paragraphs"
-    A_B_IT = "A Book, I Think"
+    Amazing_Words = "Amazing_Words"
+    Literature_For_Reading = "Literature_For_Reading"
+    TEXT_AND_MORE = "Text_and_More"
+    Characters_Words_and_Paragraphs = "Characters,_Words,_and_Paragraphs"
+    A_Book_I_Think = "A_Book,_I_Think"
 
 
 class BooksScreen(BaseScreen):
     screen_id = "SCREEN_BOOKS"
 
-    def open_book(self, book: str):
+    def open_book(self, book):
         try:
-            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BOOK_{book}").click
+            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BOOK_{book}").click()
         except NoSuchElementException:
             max_scrolls = 5
             for _ in range(max_scrolls):
@@ -29,12 +29,36 @@ class BooksScreen(BaseScreen):
                     return
                 except NoSuchElementException:
                     continue
-            print(f"No book with title {book}")
+            print(f"No book with title {book.value}")
 
-    def is_on_book(self, book: str) -> bool:
+    def is_on_book(self, book) -> bool:
         try:
-            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BOOK_{book}")
+            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BOOK_DETAILS_{book.value}")
             return True
         except:
-            print(f"{book} failed to open")
+            print(f"{book.value} failed to open")
+            return False
+
+    def add_book_as_favourite(self):
+        try:
+            self.is_book_favourite()
+            print("book already in favourites")
+        except NoSuchElementException:
+            print("failed to set title as favourite")
+        except:
+            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="BUTTON_SET_BOOK_FAVOURITE").click()
+
+    def remove_books_from_favourites(self):
+        try:
+            self.is_book_favourite()
+            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="BUTTON_REMOVE_BOOK_FAVOURITE").click()
+        except NoSuchElementException:
+            print("failed to remove book from favourites")
+
+    def is_book_favourite(self) -> bool:
+        try:
+            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="BUTTON_REMOVE_BOOK_FAVOURITE")
+            return True
+        except NoSuchElementException:
+            print("title is not a favourite")
             return False

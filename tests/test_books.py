@@ -20,5 +20,19 @@ class TestBooks:
         launch_screen.launch_app(App.BOOKS)
         books_screen = BooksScreen()
         books_screen.open_book(book.value)
+        print(f"book.value = {book.value}")
+        assert books_screen.is_on_book(book)
 
-        assert books_screen.is_on_book(book.value)
+    @pytest.mark.parametrize(
+        "book",
+        [book for book in Book]
+    )
+
+    def test_set_favourite(self, book: Book):
+        launch_screen = LaunchScreen()
+        launch_screen.launch_app(App.BOOKS)
+        books_screen = BooksScreen()
+        books_screen.open_book(book.value)
+        books_screen.remove_books_from_favourites()
+        books_screen.add_book_as_favourite()
+        assert books_screen.is_book_favourite()
