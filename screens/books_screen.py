@@ -4,6 +4,7 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common import NoSuchElementException
 
 from screens.base_screen import BaseScreen
+from tests.fixtures.value_checker import ValueChecker
 
 
 class Book(Enum):
@@ -17,26 +18,18 @@ class Book(Enum):
 class BooksScreen(BaseScreen):
     screen_id = "SCREEN_BOOKS"
 
-    def open_book(self, book):
+    def open_book_details(self, book):
         try:
             self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BOOK_{book}").click()
         except NoSuchElementException:
-            max_scrolls = 5
-            for _ in range(max_scrolls):
-                self.scroll_down()
-                try:
-                    self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BOOK_{book}").click()
-                    return
-                except NoSuchElementException:
-                    continue
-            print(f"No book with title {book.value}")
+            print(f"Unable to find {book.value} in list")
 
-    def is_on_book(self, book) -> bool:
+    def is_on_book_details(self, book) -> bool:
         try:
             self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value=f"BOOK_DETAILS_{book.value}")
             return True
-        except:
-            print(f"{book.value} failed to open")
+        except NoSuchElementException:
+            print(f"{book.value}details page failed to open")
             return False
 
     def add_book_as_favourite(self):
@@ -45,7 +38,7 @@ class BooksScreen(BaseScreen):
                 print("book already in favourites")
             else:
                 self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="BUTTON_SET_BOOK_FAVOURITE").click()
-        except:
+        except NoSuchElementException:
             print("failed to set title as favourite")
 
     def remove_books_from_favourites(self):
@@ -66,3 +59,22 @@ class BooksScreen(BaseScreen):
         except NoSuchElementException:
             print("unable to determine favourite status")
             return False
+
+    def open_book(self):
+        try:
+            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="BUTTON_READ_BOOK").click()
+        except NoSuchElementException:
+            print("failed to launch book reader")
+
+    def is_on_book(self, book) -> bool:
+        try:
+            self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="SCREEN_BOOK_READER")
+            return True
+        except NoSuchElementException:
+            print(f"{book} failed to open")
+            return False
+
+    def get_page_number(self):
+        current_page = ValueChecker.get_value(self, "BOOK_PAGE_NUMBER")
+        print(current_page)
+        return current_page

@@ -5,7 +5,7 @@ from selenium.common import NoSuchElementException
 from screens.base_screen import BaseScreen
 from appium.webdriver.common.appiumby import AppiumBy
 
-from tests.fixtures.score_checker import ScoreChecker
+from tests.fixtures.value_checker import ValueChecker
 
 
 class Game(Enum):
@@ -58,20 +58,20 @@ class GamesScreen(BaseScreen):
         return int(score)
 
     def get_war_cards_remaining(self) -> int:
-        war_cards_remaining = ScoreChecker.get_score(self,"WAR_CARDS_REMAINING_VALUE")
+        war_cards_remaining = ValueChecker.get_value(self, "WAR_CARDS_REMAINING_VALUE")
         return war_cards_remaining
 
     def get_dice_war_score(self):
-        player_score = ScoreChecker.get_score(self,"PLAYER_SCORE_VALUE")
-        cpu_score = ScoreChecker.get_score(self,"CPU_SCORE_VALUE")
-        tie_score = ScoreChecker.get_score(self,"TIE_SCORE_VALUE")
+        player_score = ValueChecker.get_value(self, "PLAYER_SCORE_VALUE")
+        cpu_score = ValueChecker.get_value(self, "CPU_SCORE_VALUE")
+        tie_score = ValueChecker.get_value(self, "TIE_SCORE_VALUE")
         dice_score = player_score + cpu_score + tie_score
         return dice_score
 
     def get_dice_roller_count(self):
-        count = ScoreChecker.get_score(self, "DICE_TOTAL_VALUE")
+        count = ValueChecker.get_value(self, "DICE_TOTAL_VALUE")
         return count
 
     def get_card_flipper_value(self):
-        card_value = ScoreChecker.get_score(self, "CARD_VALUE")
+        card_value = ValueChecker.get_value(self, "CARD_VALUE")
         return card_value
