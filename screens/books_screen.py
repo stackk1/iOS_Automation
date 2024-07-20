@@ -78,3 +78,15 @@ class BooksScreen(BaseScreen):
         current_page = ValueChecker.get_value(self, "BOOK_PAGE_NUMBER")
         print(current_page)
         return current_page
+
+    def open_book_settings(self):
+        self.driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="SETTINGSBUTTON_BOOKS").click()
+
+    def set_scroll_view(self):
+        try:
+            view_toggle = self.driver.find_element(by=AppiumBy.XPATH, value="//XCUIElementTypeSwitch[@name='TOGGLE_READER_MODE']")
+            print(view_toggle.get_attribute("value"))
+            view_toggle.tap()
+            print(view_toggle.get_attribute("value"))
+        except NoSuchElementException:
+            print("failed to change page view")

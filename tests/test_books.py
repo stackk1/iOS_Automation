@@ -51,3 +51,13 @@ class TestBooks:
         assert books_screen.get_page_number() == 2
         books_screen.swipe(200,500,800,500)
         assert books_screen.get_page_number() == 1
+
+    def test_scroll_view(self):
+        launch_screen = LaunchScreen()
+        launch_screen.launch_app(App.BOOKS)
+        books_screen = BooksScreen()
+        books_screen.open_book_settings()
+        books_screen.set_scroll_view()
+        books_screen.go_back()
+        books_screen.open_book_details("Amazing_Words")
+        books_screen.open_book()

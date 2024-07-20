@@ -46,3 +46,6 @@ class BaseScreen(ABC):
 
     def scroll_down(self):
         self.driver.swipe(start_x=500, start_y=1500, end_x=500, end_y=500, duration=800)
+
+    def go_back(self):
+        self.driver.find_element(by=AppiumBy.XPATH, value="////XCUIElementTypeButton[@name='Back' and @label='Back']")
